@@ -1,0 +1,78 @@
+parameters:
+  AppId:
+    name: AppId
+    in: header
+    description: Application ID
+    type: string
+    required: true
+  AppName:
+    name: AppName
+    in: header
+    description: Application Name
+    type: string
+    required: false
+definitions:
+  MoneyOrPercent:
+    type: object
+    description: |   Generic object
+      value.
+    required:
+    - value
+    properties:
+      value:
+        type: number
+        format: double
+      valueType:
+        type: string
+        default: MONEY
+        enum:
+        - PERCENT
+        - MONEY
+      currency:
+        type: string
+        default: USD
+        enum:
+        - USD
+  Frequency:
+    type: string
+    enum:
+    - YEARLY
+    default: YEARLY
+  RolldownRate:
+    type: object
+    properties:
+      year:
+        type: integer
+      rate:
+        type: number
+        format: double
+  CommonResponse:
+    type: object
+    properties:
+      responseDiagnostics:
+        type: array
+        items:
+          $ref: '#/definitions/ResponseDiagnostic'
+  ResponseDiagnostic:
+    type: object
+    required:
+    - type
+    - source
+    - code
+    - message
+    properties:
+      type:
+        description: The classification of message
+        type: string
+      source:
+        description: The source of the response diagnostic
+        type: string
+      code:
+        description: The response diagnostic code
+        type: string
+      message:
+        description: The response diagnostic message
+        type: string
+      detail:
+        description: Any additional information that may be required
+        type: string
