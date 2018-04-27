@@ -1,0 +1,50 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: contract standard demo
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /ResourceA:
+    post:
+      parameters:
+      - $ref: './commons.yaml#/parameters/fsreqid'
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/DemoResponse'
+definitions:
+  DemoResponse:
+    allOf:
+    - $ref: './commons.yaml#/definitions/CommonResponse'
+    - type: object
+      required:
+      - body
+      properties:
+        body:
+          $ref: '#/definitions/DemoBody'
+  DemoBody:
+    type: object
+    properties:
+      field1:
+        $ref: '#/definitions/OneDimensionData'
+      field2:
+        $ref: '#/definitions/ExtensionObj'
+  OneDimensionData:
+    type: object
+    description: one dimension reference data
+    additionalProperties:
+      type: string
+  ExtensionObj:
+    allOf:
+    - $ref: './commons.yaml#/definitions/RolldownRate'
+    - type: object
+      required:
+      - rootCause
+      properties:
+        rootCause:
+          type: string
