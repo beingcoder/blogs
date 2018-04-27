@@ -14,8 +14,7 @@ parameters:
 definitions:
   MoneyOrPercent:
     type: object
-    description: |   Generic object
-      value.
+    description: demo
     required:
     - value
     properties:
@@ -66,7 +65,4 @@ definitions:
         type: string
       source:
         description: The source of the response diagnostic
-        type: string
-      code:
-        description: The response diagnostic code
         type: string
