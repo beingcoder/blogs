@@ -70,9 +70,3 @@ definitions:
       code:
         description: The response diagnostic code
         type: string
-      message:
-        description: The response diagnostic message
-        type: string
-      detail:
-        description: Any additional information that may be required
-        type: string
