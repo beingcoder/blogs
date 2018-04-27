@@ -1,0 +1,155 @@
+parameters:
+  AppId:
+    name: AppId
+    in: header
+    description: Application ID (previously ```calling-app-id```)
+    type: string
+    required: true
+  AppName:
+    name: AppName
+    in: header
+    description: Application Name
+    type: string
+    required: false
+  fsreqid:
+    name: fsreqid
+    in: header
+    description: Unique log tracking identifier (previously ```log-tracking-id```)
+    type: string
+    required: true
+  LogLevel:
+    name: LogLevel
+    in: header
+    description: Log Level
+    type: string
+    required: false
+definitions:
+  MoneyOrPercent:
+    type: object
+    description: |
+      Generic object describing a value that can either be describing as a
+      percentage represented as a decimal (where 0.5 is 50%) or a monetary
+      value.
+    required:
+    - value
+    properties:
+      value:
+        type: number
+        format: double
+      valueType:
+        type: string
+        default: MONEY
+        enum:
+        - PERCENT
+        - MONEY
+      currency:
+        type: string
+        default: USD
+        enum:
+        - USD
+  PeriodicAmount:
+    type: object
+    description: A money amount with a Frequency
+    required:
+    - amount
+    properties:
+      amount:
+        type: number
+        format: double
+      frequency:
+        $ref: '#/definitions/Frequency'
+  Frequency:
+    type: string
+    enum:
+    - YEARLY
+    default: YEARLY
+  TaxType:
+    type: string
+    enum:
+    - PRE_TAX
+    - POST_TAX
+    - ROTH
+  Contributor:
+    type: string
+    enum:
+    - INDIVIDUAL
+    - EMPLOYER
+  Relationship:
+    type: string
+    enum:
+    - PRINCIPAL
+    - PARTNER
+  Timeframe:
+    type: object
+    description: Represents a time interval with a start date and end date
+    required:
+    - startTime
+    - endTime
+    properties:
+      startTime:
+        type: string
+        format: date
+      endTime:
+        type: string
+        format: date
+  AssetMix:
+    type: object
+    description: Represents an allocation of stocks, bonds, and cash totalling 100%
+    required:
+    - stockPct
+    - bondPct
+    - cashPct
+    properties:
+      stockPct:
+        type: number
+        format: double
+        minimum: 0.0
+        maximum: 1.0
+      bondPct:
+        type: number
+        format: double
+        minimum: 0.0
+        maximum: 1.0
+      cashPct:
+        type: number
+        format: double
+        minimum: 0.0
+        maximum: 1.0
+  RolldownRate:
+    type: object
+    properties:
+      year:
+        type: integer
+      rate:
+        type: number
+        format: double
+  CommonResponse:
+    type: object
+    properties:
+      responseDiagnostics:
+        type: array
+        items:
+          $ref: '#/definitions/ResponseDiagnostic'
+  ResponseDiagnostic:
+    type: object
+    required:
+    - type
+    - source
+    - code
+    - message
+    properties:
+      type:
+        description: The classification of message
+        type: string
+      source:
+        description: The source of the response diagnostic
+        type: string
+      code:
+        description: The response diagnostic code
+        type: string
+      message:
+        description: The response diagnostic message
+        type: string
+      detail:
+        description: Any additional information that may be required
+        type: string
