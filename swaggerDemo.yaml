@@ -12,7 +12,12 @@ paths:
   /ResourceA:
     post:
       parameters:
-      - $ref: './commons.yaml#/parameters/fsreqid'
+        - $ref: './commons.yaml#/parameters/AppId'
+        - name: DemoReq
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ExtensionObj'
       responses:
         200:
           schema:
@@ -33,18 +38,18 @@ definitions:
       field1:
         $ref: '#/definitions/OneDimensionData'
       field2:
-        $ref: '#/definitions/ExtensionObj'
+        $ref: './commons.yaml#/definitions/RolldownRate'
   OneDimensionData:
     type: object
     description: one dimension reference data
     additionalProperties:
       type: string
-  ExtensionObj:
+  DemoRequest:
     allOf:
     - $ref: './commons.yaml#/definitions/RolldownRate'
     - type: object
       required:
-      - rootCause
+      - text
       properties:
-        rootCause:
+        text:
           type: string
