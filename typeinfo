@@ -1,0 +1,3 @@
+{{#jackson}}
+@JsonTypeInfo(include = JsonTypeInfo.As.PROPERTY, use = JsonTypeInfo.Id.CLASS, property = "{{{discriminatorName}}}")
+{{/jackson}}
