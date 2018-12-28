@@ -1,0 +1,24 @@
+        if(property.baseName.startsWith("_")){
+        	property.nameWithUnderScore="_"+property.name;
+        	property.nameInCamelCaseWithUnderScore="_"+property.nameInCamelCase;
+        }else{
+        	property.nameWithUnderScore=property.name;
+        	property.nameInCamelCaseWithUnderScore=property.nameInCamelCase;
+       
+        }
+        
+        --------
+        
+                String prefix=(property.baseName.startsWith("_"))?"_":"";
+        property.getter = toGetter(name,prefix);
+        property.setter = toSetter(name,prefix);
+        
+        
+        ---
+           public String toGetter(String name, String prefix) {
+        return "get" +prefix+ getterAndSetterCapitalize(name);
+    }
+
+    public String toSetter(String name, String prefix) {
+        return "set" +prefix + getterAndSetterCapitalize(name);
+    }
